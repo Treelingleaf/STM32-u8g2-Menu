@@ -1,0 +1,9 @@
+{
+  "files.associations": {
+    "key.h": "c",
+    "u8g2.h": "c",
+    "picture.h": "c",
+    "stm32f10x.h": "c",
+    "delay.h": "c"
+  }
+}

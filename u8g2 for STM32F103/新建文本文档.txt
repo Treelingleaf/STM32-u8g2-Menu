@@ -1,0 +1,7 @@
+uint8_t GPIO_ReadInputDataBit(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin);
+读取GPIO输入
+uint16_t GPIO_ReadInputData(GPIO_TypeDef* GPIOx);
+
+uint8_t GPIO_ReadOutputDataBit(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin);
+读取GPIO输出
+uint16_t GPIO_ReadOutputData(GPIO_TypeDef* GPIOx);
