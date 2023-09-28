@@ -48,12 +48,12 @@
 - OLED显示屏
 - 按键
 ## 硬件连接
-Key_left --- PB11
-key_right --- PB0
-key_ok --- PB5
-key_return --- PB8
-I2C_SCK --- PB6
-I2c_SDA --- PB7
+Key_left --- PB11  
+key_right --- PB0  
+key_ok --- PB5  
+key_return --- PB8  
+I2C_SCK --- PB6  
+I2c_SDA --- PB7  
 
 ## 编译和烧录
 
