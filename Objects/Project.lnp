@@ -74,7 +74,7 @@
 ".\objects\oled.o"
 ".\objects\menu.o"
 ".\objects\usar1t.o"
---strict --scatter ".\Objects\Project.sct"
+--library_type=microlib --strict --scatter ".\Objects\Project.sct"
 --summary_stderr --info summarysizes --map --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
 --list ".\Listings\Project.map" -o .\Objects\Project.axf

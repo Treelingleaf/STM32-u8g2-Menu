@@ -60,7 +60,7 @@ uint8_t Key_GetNum(void)
 		Delay_ms(20);
 		KeyNum = 5;
 	}
-	return KeyNum;
+ 	return KeyNum;
 }
 
 uint8_t Static_Key_GetNum(void)

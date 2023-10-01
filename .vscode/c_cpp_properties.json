@@ -3,12 +3,12 @@
         {
             "name": "Target 1",
             "includePath": [
-                "d:\\Desktop\\oled丝滑菜单显示(硬件iic u8g2)\\Library",
-                "d:\\Desktop\\oled丝滑菜单显示(硬件iic u8g2)\\Start",
-                "d:\\Desktop\\oled丝滑菜单显示(硬件iic u8g2)\\User",
-                "d:\\Desktop\\oled丝滑菜单显示(硬件iic u8g2)\\System",
-                "d:\\Desktop\\oled丝滑菜单显示(硬件iic u8g2)\\Hareware",
-                "d:\\Desktop\\oled丝滑菜单显示(硬件iic u8g2)\\Hareware\\u8g2",
+                "d:\\Desktop\\u8g2 for STM32F103\\Library",
+                "d:\\Desktop\\u8g2 for STM32F103\\Start",
+                "d:\\Desktop\\u8g2 for STM32F103\\User",
+                "d:\\Desktop\\u8g2 for STM32F103\\System",
+                "d:\\Desktop\\u8g2 for STM32F103\\Hareware",
+                "d:\\Desktop\\u8g2 for STM32F103\\Hareware\\u8g2",
                 "D:\\keil5\\ARM\\ARMCC\\include",
                 "D:\\keil5\\ARM\\ARMCC\\include\\rw"
             ],
