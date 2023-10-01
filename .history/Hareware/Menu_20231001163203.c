@@ -73,12 +73,6 @@ ChildMenu GameChild4[4] = {
 	{"this is set3", NULL, NULL, NULL, CHILD_TO_CHILD},
 	{"this is set4", NULL, NULL, NULL, CHILD_TO_CHILD}};
 
-ChildMenu MessageChild2[4] = {
-	{"this is message1", NULL, NULL, NULL, CHILD_TO_CHILD},
-	{"this is message2", NULL, NULL, NULL, CHILD_TO_CHILD},
-	{"this is message3", NULL, NULL, NULL, CHILD_TO_CHILD},
-	{"this is message4", NULL, NULL, NULL, CHILD_TO_CHILD}};
-
 /**
  * 连接主菜单和子菜单，建立父子关系。
  */
@@ -86,16 +80,13 @@ void UIConnect(void)
 {
 	/*子级关系*/
 	MainMenu_Config[0].ChildMenu = GameMune;
-	MainMenu_Config[1].ChildMenu = MessageMune;
 	MainMenu_Config[2].ChildMenu = SettingMune;
 	MainMenu_Config[3].ChildMenu = GameMune;
 
 	GameMune[3].child = GameChild4;
-	MessageMune[1].child = MessageChild2;
 
 	/*父级关系*/
 	GameChild4->father = GameMune;
-	MessageChild2->father = MessageMune;
 }
 
 /*************************************************
@@ -312,8 +303,6 @@ void Show_Menu(Speed_ENUM Speed_choose) // 显示菜单
 	if (MainMenu_Config[Picture_Flag].ChildMenu != NULL)
 		Creat_Childv2_Menu(MainMenu_Config[Picture_Flag].ChildMenu, MainMenu_Config[Picture_Flag].MenuName, 0);
 }
-
-// TODO:创建一个页面
 
 /**
  * 创建子菜单并处理用户输入。

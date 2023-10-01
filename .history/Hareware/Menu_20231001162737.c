@@ -37,10 +37,6 @@
 
 */
 
-/*************************************************
-				需要修改的地方begin
-*************************************************/
-
 /*定义主菜单*/
 MainMenu MainMenu_Config[4] = {
 	{game, "GAME", NULL},
@@ -61,23 +57,11 @@ ChildMenu SettingMune[4] = {
 	{"setting3:Stick Fight", NULL, NULL, NULL, MAIN_TO_CHILD},
 	{"setting4:Tetris", NULL, NULL, NULL, MAIN_TO_CHILD}};
 
-ChildMenu MessageMune[4] = {
-	{"Hello World", NULL, NULL, NULL, MAIN_TO_CHILD},
-	{"Hello Kettiy", NULL, NULL, NULL, MAIN_TO_CHILD},
-	{"I'm Li Hua", NULL, NULL, NULL, MAIN_TO_CHILD},
-	{"This is a message", NULL, NULL, NULL, MAIN_TO_CHILD}};
-
 ChildMenu GameChild4[4] = {
 	{"this is set1", NULL, NULL, NULL, CHILD_TO_CHILD},
 	{"this is set2", NULL, NULL, NULL, CHILD_TO_CHILD},
 	{"this is set3", NULL, NULL, NULL, CHILD_TO_CHILD},
 	{"this is set4", NULL, NULL, NULL, CHILD_TO_CHILD}};
-
-ChildMenu MessageChild2[4] = {
-	{"this is message1", NULL, NULL, NULL, CHILD_TO_CHILD},
-	{"this is message2", NULL, NULL, NULL, CHILD_TO_CHILD},
-	{"this is message3", NULL, NULL, NULL, CHILD_TO_CHILD},
-	{"this is message4", NULL, NULL, NULL, CHILD_TO_CHILD}};
 
 /**
  * 连接主菜单和子菜单，建立父子关系。
@@ -86,21 +70,14 @@ void UIConnect(void)
 {
 	/*子级关系*/
 	MainMenu_Config[0].ChildMenu = GameMune;
-	MainMenu_Config[1].ChildMenu = MessageMune;
 	MainMenu_Config[2].ChildMenu = SettingMune;
 	MainMenu_Config[3].ChildMenu = GameMune;
 
 	GameMune[3].child = GameChild4;
-	MessageMune[1].child = MessageChild2;
 
 	/*父级关系*/
 	GameChild4->father = GameMune;
-	MessageChild2->father = MessageMune;
 }
-
-/*************************************************
-				需要修改的地方end
-*************************************************/
 
 Speed_ENUM Speed_choose;
 
@@ -312,8 +289,6 @@ void Show_Menu(Speed_ENUM Speed_choose) // 显示菜单
 	if (MainMenu_Config[Picture_Flag].ChildMenu != NULL)
 		Creat_Childv2_Menu(MainMenu_Config[Picture_Flag].ChildMenu, MainMenu_Config[Picture_Flag].MenuName, 0);
 }
-
-// TODO:创建一个页面
 
 /**
  * 创建子菜单并处理用户输入。

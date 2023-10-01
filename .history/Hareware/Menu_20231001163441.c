@@ -313,8 +313,6 @@ void Show_Menu(Speed_ENUM Speed_choose) // 显示菜单
 		Creat_Childv2_Menu(MainMenu_Config[Picture_Flag].ChildMenu, MainMenu_Config[Picture_Flag].MenuName, 0);
 }
 
-// TODO:创建一个页面
-
 /**
  * 创建子菜单并处理用户输入。
  * @param menuitem - 指向子菜单的指针。

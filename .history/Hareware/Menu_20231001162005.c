@@ -6,102 +6,6 @@
 #include "Delay.h"
 #include <string.h>
 
-/*
-Ä£¿éÃû³Æ: ²Ëµ¥¹ÜÀíÄ£¿é
-Ä£¿éÃèÊö:
-Õâ¸öÄ£¿é¸ºÔğ¹ÜÀíÏÔÊ¾²Ëµ¥ºÍ×Ó²Ëµ¥£¬ÒÔ¼°´¦ÀíÓÃ»§ÔÚ²Ëµ¥Ò³ÃæµÄ½»»¥¡£Ä£¿éÖĞ°üº¬ÁËÒ»Ğ©Ö÷Òªº¯Êı£¬ÓÃÓÚÕ¹Ê¾Ö÷²Ëµ¥¡¢×Ó²Ëµ¥¡¢´¦Àí²Ëµ¥Ö®¼äµÄÇĞ»»ºÍÓÃ»§²Ù×÷¡£
-
-Ö÷ÒªË¼Â·:
-1. Ö÷²Ëµ¥ºÍ×Ó²Ëµ¥ÊÇÍ¨¹ı½á¹¹ÌåÊı×é½øĞĞ×éÖ¯µÄ£¬ÆäÖĞÃ¿¸ö²Ëµ¥Ïî¶¼°üº¬ÁËÃû³Æ¡¢Í¼±êµÈĞÅÏ¢¡£
-2. Ö÷²Ëµ¥µÄÇĞ»»Í¨¹ı×óÓÒ»¬¶¯Í¼±êÀ´ÊµÏÖ£¬ÓÃ»§°´¼ü´¥·¢×ó»¬ºÍÓÒ»¬²Ù×÷£¬ÇĞ»»²»Í¬µÄÖ÷²Ëµ¥Ïî¡£
-3. ×Ó²Ëµ¥µÄÏÔÊ¾ºÍÇĞ»»ÔÚÖ÷²Ëµ¥Ïî±»Ñ¡ÖĞÊ±Ö´ĞĞ£¬×Ó²Ëµ¥µÄÄÚÈİÒ²¿ÉÒÔÊÇÒ»¸ö×Ó¼¶²Ëµ¥¡£
-4. ²Ëµ¥ÏîµÄÑ¡ÖĞºÍÈ·ÈÏ²Ù×÷ÓÉÓÃ»§°´¼ü´¥·¢£¬Ñ¡ÖĞºó¿ÉÒÔ½øÈë×Ó²Ëµ¥»òÖ´ĞĞÏà¹Ø²Ù×÷¡£
-
-Ö÷ÒªÊµÏÖ·½·¨:
-1. Ê¹ÓÃ½á¹¹ÌåÊı×éÀ´×éÖ¯Ö÷²Ëµ¥ºÍ×Ó²Ëµ¥£¬Ã¿¸ö½á¹¹Ìå°üº¬ÁË²Ëµ¥µÄÃû³Æ¡¢Í¼±êµÈĞÅÏ¢¡£
-2. ÀûÓÃÍ¼ĞÎ¿â£¨u8g2£©À´»æÖÆ²Ëµ¥ºÍ×Ó²Ëµ¥µÄ½çÃæ£¬°üÀ¨Í¼±ê¡¢ÎÄ×ÖµÈ¡£
-3. Í¨¹ı´¦ÀíÓÃ»§°´¼üÀ´ÇĞ»»Ö÷²Ëµ¥¡¢×Ó²Ëµ¥ºÍÖ´ĞĞÏà¹Ø²Ù×÷¡£
-4. ÊµÏÖÁË²Ëµ¥µ½×Ó²Ëµ¥¡¢×Ó²Ëµ¥µ½²Ëµ¥µÄÇĞ»»¶¯»­Ğ§¹û£¬ÌáÉıÓÃ»§ÌåÑé¡£
-
-ÈçºÎ´´½¨»òĞŞ¸ÄÒ»¸ö²Ëµ¥Ò³Ãæ:
-1. ´´½¨Ò»¸öĞÂµÄÖ÷²Ëµ¥»ò×Ó²Ëµ¥ĞèÒª¶¨ÒåÒ»¸ö¶ÔÓ¦µÄ½á¹¹ÌåÊı×é£¬°üÀ¨²Ëµ¥ÏîµÄÃû³Æ¡¢Í¼±êµÈĞÅÏ¢¡£
-2. ÔÚ`UIConnect`º¯ÊıÖĞ½¨Á¢²Ëµ¥Ö®¼äµÄ¸¸×Ó¹ØÏµ£¬½«×Ó²Ëµ¥Á´½Óµ½¶ÔÓ¦µÄÖ÷²Ëµ¥ÏîÉÏ¡£
-3. ÔÚ`Show_Menu`º¯ÊıÖĞ¸ù¾İÓÃ»§²Ù×÷ÇĞ»»²Ëµ¥£¬´¦Àí²Ëµ¥µÄÏÔÊ¾Âß¼­¡£
-4. Èç¹ûĞèÒªÔÚ²Ëµ¥Ò³ÃæÖĞÖ´ĞĞÌØ¶¨²Ù×÷£¬¿ÉÒÔÔÚºÏÊÊµÄµØ·½Ìí¼ÓÏà¹Ø´úÂë£¬ÀıÈçÔÚÑ¡ÖĞ²Ëµ¥ÏîºóÖ´ĞĞÌØ¶¨¹¦ÄÜ¡£
-
-ÌáÊ¾:
-- Òª´´½¨ĞÂµÄ²Ëµ¥Ïî£¬Çë¶¨ÒåÒ»¸öĞÂµÄ½á¹¹Ìå£¬²¢½«ÆäÌí¼Óµ½¶ÔÓ¦µÄ²Ëµ¥Êı×éÖĞ¡£
-- ²Ëµ¥µÄÍ¼±ê¿ÉÒÔÍ¨¹ıÍ¼ĞÎ¿âÀ´»æÖÆ£¬È»ºó×ª»»ÎªXBM¸ñÊ½£¬²¢Ê¹ÓÃ`u8g2_DrawXBM`À´ÏÔÊ¾¡£
-- ¿ÉÒÔ¸ù¾İĞèÒªĞŞ¸Ä²Ëµ¥µÄÍâ¹ÛºÍ²¼¾Ö£¬°üÀ¨ÎÄ×ÖÎ»ÖÃ¡¢×ÖÌå´óĞ¡µÈ¡£
-- ÔÚ´¦ÀíÓÃ»§°´¼üÊ±£¬×¢Òâ¼ì²é°´¼ü×´Ì¬²¢Ö´ĞĞÏàÓ¦µÄ²Ù×÷£¬ÀıÈçÇĞ»»²Ëµ¥¡¢½øÈë×Ó²Ëµ¥¡¢Ö´ĞĞ¹¦ÄÜµÈ¡£
-
-*/
-
-/*************************************************
-				ĞèÒªĞŞ¸ÄµÄµØ·½begin
-*************************************************/
-
-/*¶¨ÒåÖ÷²Ëµ¥*/
-MainMenu MainMenu_Config[4] = {
-	{game, "GAME", NULL},
-	{wechat, "MESSAGE", NULL},
-	{setting, "SETTING", NULL},
-	{game, "EXIT", NULL}};
-
-/*¶¨Òå¶ş¼¶×Ó²Ëµ¥½á¹¹Ìå*/
-ChildMenu GameMune[4] = {
-	{"game1:FlyBird", NULL, NULL, NULL, MAIN_TO_CHILD},
-	{"game2:Dinosaur Rex", NULL, NULL, NULL, MAIN_TO_CHILD},
-	{"game3:Stick Fight", NULL, NULL, NULL, MAIN_TO_CHILD},
-	{"game4:Tetris", NULL, NULL, NULL, MAIN_TO_CHILD}};
-
-ChildMenu SettingMune[4] = {
-	{"setting1:FlyBird", NULL, NULL, NULL, MAIN_TO_CHILD},
-	{"setting2:Dinosaur Rex", NULL, NULL, NULL, MAIN_TO_CHILD},
-	{"setting3:Stick Fight", NULL, NULL, NULL, MAIN_TO_CHILD},
-	{"setting4:Tetris", NULL, NULL, NULL, MAIN_TO_CHILD}};
-
-ChildMenu MessageMune[4] = {
-	{"Hello World", NULL, NULL, NULL, MAIN_TO_CHILD},
-	{"Hello Kettiy", NULL, NULL, NULL, MAIN_TO_CHILD},
-	{"I'm Li Hua", NULL, NULL, NULL, MAIN_TO_CHILD},
-	{"This is a message", NULL, NULL, NULL, MAIN_TO_CHILD}};
-
-ChildMenu GameChild4[4] = {
-	{"this is set1", NULL, NULL, NULL, CHILD_TO_CHILD},
-	{"this is set2", NULL, NULL, NULL, CHILD_TO_CHILD},
-	{"this is set3", NULL, NULL, NULL, CHILD_TO_CHILD},
-	{"this is set4", NULL, NULL, NULL, CHILD_TO_CHILD}};
-
-ChildMenu MessageChild2[4] = {
-	{"this is message1", NULL, NULL, NULL, CHILD_TO_CHILD},
-	{"this is message2", NULL, NULL, NULL, CHILD_TO_CHILD},
-	{"this is message3", NULL, NULL, NULL, CHILD_TO_CHILD},
-	{"this is message4", NULL, NULL, NULL, CHILD_TO_CHILD}};
-
-/**
- * Á¬½ÓÖ÷²Ëµ¥ºÍ×Ó²Ëµ¥£¬½¨Á¢¸¸×Ó¹ØÏµ¡£
- */
-void UIConnect(void)
-{
-	/*×Ó¼¶¹ØÏµ*/
-	MainMenu_Config[0].ChildMenu = GameMune;
-	MainMenu_Config[1].ChildMenu = MessageMune;
-	MainMenu_Config[2].ChildMenu = SettingMune;
-	MainMenu_Config[3].ChildMenu = GameMune;
-
-	GameMune[3].child = GameChild4;
-	MessageMune[1].child = MessageChild2;
-
-	/*¸¸¼¶¹ØÏµ*/
-	GameChild4->father = GameMune;
-	MessageChild2->father = MessageMune;
-}
-
-/*************************************************
-				ĞèÒªĞŞ¸ÄµÄµØ·½end
-*************************************************/
-
 Speed_ENUM Speed_choose;
 
 extern u8g2_t u8g2;
@@ -209,6 +113,48 @@ void ui_left_one_Picture(int16_t *a, int b)
 	}
 }
 
+/*¶¨ÒåÖ÷²Ëµ¥*/
+MainMenu MainMenu_Config[4] = {
+	{game, "GAME", NULL},
+	{wechat, "MESSAGE", NULL},
+	{setting, "SETTING", NULL},
+	{game, "EXIT", NULL}};
+
+/*¶¨Òå¶ş¼¶×Ó²Ëµ¥½á¹¹Ìå*/
+ChildMenu GameMune[4] = {
+	{"game1:FlyBird", NULL, NULL, NULL, MAIN_TO_CHILD},
+	{"game2:Dinosaur Rex", NULL, NULL, NULL, MAIN_TO_CHILD},
+	{"game3:Stick Fight", NULL, NULL, NULL, MAIN_TO_CHILD},
+	{"game4:Tetris", NULL, NULL, NULL, MAIN_TO_CHILD}};
+
+ChildMenu SettingMune[4] = {
+	{"setting1:FlyBird", NULL, NULL, NULL, MAIN_TO_CHILD},
+	{"setting2:Dinosaur Rex", NULL, NULL, NULL, MAIN_TO_CHILD},
+	{"setting3:Stick Fight", NULL, NULL, NULL, MAIN_TO_CHILD},
+	{"setting4:Tetris", NULL, NULL, NULL, MAIN_TO_CHILD}};
+
+ChildMenu GameChild4[4] = {
+	{"this is set1", NULL, NULL, NULL, CHILD_TO_CHILD},
+	{"this is set2", NULL, NULL, NULL, CHILD_TO_CHILD},
+	{"this is set3", NULL, NULL, NULL, CHILD_TO_CHILD},
+	{"this is set4", NULL, NULL, NULL, CHILD_TO_CHILD}};
+
+/**
+ * Á¬½ÓÖ÷²Ëµ¥ºÍ×Ó²Ëµ¥£¬½¨Á¢¸¸×Ó¹ØÏµ¡£
+ */
+void UIConnect(void)
+{
+	/*×Ó¼¶¹ØÏµ*/
+	MainMenu_Config[0].ChildMenu = GameMune;
+	MainMenu_Config[2].ChildMenu = SettingMune;
+	MainMenu_Config[3].ChildMenu = GameMune;
+
+	GameMune[3].child = GameChild4;
+
+	/*¸¸¼¶¹ØÏµ*/
+	GameChild4->father = GameMune;
+}
+
 /**
  * ÏÔÊ¾²Ëµ¥ÅäÖÃ£¬°üÀ¨Ö÷²Ëµ¥ºÍ×Ó²Ëµ¥¡£
  */
@@ -251,10 +197,6 @@ void Show_MenuRE(Speed_ENUM Speed_choose)
 	}
 }
 
-/**
- * ÏÔÊ¾µ±Ç°²Ëµ¥£¬´¦ÀíÓÃ»§ÊäÈë¡£
- * @param Speed_choose - ÓÃ»§Ñ¡ÔñµÄËÙ¶È¡£
- */
 void Show_Menu(Speed_ENUM Speed_choose) // ÏÔÊ¾²Ëµ¥
 {
 	KeyNum = Key_GetNum();
@@ -313,14 +255,8 @@ void Show_Menu(Speed_ENUM Speed_choose) // ÏÔÊ¾²Ëµ¥
 		Creat_Childv2_Menu(MainMenu_Config[Picture_Flag].ChildMenu, MainMenu_Config[Picture_Flag].MenuName, 0);
 }
 
-// TODO:´´½¨Ò»¸öÒ³Ãæ
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
-/**
- * ´´½¨×Ó²Ëµ¥²¢´¦ÀíÓÃ»§ÊäÈë¡£
- * @param menuitem - Ö¸Ïò×Ó²Ëµ¥µÄÖ¸Õë¡£
- * @param Title - ×Ó²Ëµ¥µÄ±êÌâ¡£
- * @param child_Flag - ×Ó²Ëµ¥±êÖ¾¡£
- */
 void Creat_Childv2_Menu(ChildMenu *menuitem, char *Title, uint8_t child_Flag)
 {
 	static char Box_x = 1; // ÉèÖÃĞ¡·½¿ò¸÷ÖÖ²ÎÊı³õÊ¼Öµ
@@ -412,11 +348,10 @@ void Creat_Childv2_Menu(ChildMenu *menuitem, char *Title, uint8_t child_Flag)
 	Picture_Flag = Picture_Flag;
 }
 
-/**
- * ²Ëµ¥µ½×Ó²Ëµ¥¶¯»­£¬´¦Àí½çÃæ¹ı¶ÉĞ§¹û¡£
- * @param menuitem - Ö¸Ïò×Ó²Ëµ¥µÄÖ¸Õë¡£
- * @param child_Flag - ×Ó²Ëµ¥±êÖ¾¡£
- */
+/*
+²Ëµ¥µ½×Ó²Ëµ¥¶¯»­
+@menuitem£ºÖ¸ÏòMenuItem½á¹¹ÌåÊı×éµÄÖ¸Õë
+*/
 void Menu_To_X_Display(ChildMenu *menuitem, uint8_t child_Flag) // ²Ëµ¥¡úÓÎÏ·²Ëµ¥¹ı¶É¶¯»­
 {
 
@@ -493,12 +428,10 @@ void Menu_To_X_Display(ChildMenu *menuitem, uint8_t child_Flag) // ²Ëµ¥¡úÓÎÏ·²Ëµ
 		u8g2_SendBuffer(&u8g2); // °ÑÒªÏÔÊ¾µÄĞÅÏ¢Ğ´Èë»º´æ
 	}
 }
-
-/**
- * ×Ó²Ëµ¥·µ»ØÖ÷²Ëµ¥¶¯»­£¬´¦Àí½çÃæ¹ı¶ÉĞ§¹û¡£
- * @param menuitem - Ö¸Ïò×Ó²Ëµ¥µÄÖ¸Õë¡£
- * @param child_Flag - ×Ó²Ëµ¥±êÖ¾¡£
- */
+/*
+×Ó²Ëµ¥·µ»ØÖ÷²Ëµ¥¶¯»­
+@menuitem£ºÖ¸ÏòMenuItem½á¹¹ÌåÊı×éµÄÖ¸Õë
+*/
 void X_To_Menu_Display(ChildMenu *menuitem, uint8_t child_Flag)
 {
 	char Game_Menu_Display = 10;
@@ -562,10 +495,8 @@ void X_To_Menu_Display(ChildMenu *menuitem, uint8_t child_Flag)
 		}
 	}
 }
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
-/**
- * ÏÔÊ¾Ö÷Ò³Ãæ£¬°üÀ¨Ê±¼äºÍÈÕÆÚĞÅÏ¢¡£
- */
 void Show_MainPage(void)
 {
 	if (MenuStatus == MENU_MAIN)

@@ -6,102 +6,6 @@
 #include "Delay.h"
 #include <string.h>
 
-/*
-模块名称: 菜单管理模块
-模块描述:
-这个模块负责管理显示菜单和子菜单，以及处理用户在菜单页面的交互。模块中包含了一些主要函数，用于展示主菜单、子菜单、处理菜单之间的切换和用户操作。
-
-主要思路:
-1. 主菜单和子菜单是通过结构体数组进行组织的，其中每个菜单项都包含了名称、图标等信息。
-2. 主菜单的切换通过左右滑动图标来实现，用户按键触发左滑和右滑操作，切换不同的主菜单项。
-3. 子菜单的显示和切换在主菜单项被选中时执行，子菜单的内容也可以是一个子级菜单。
-4. 菜单项的选中和确认操作由用户按键触发，选中后可以进入子菜单或执行相关操作。
-
-主要实现方法:
-1. 使用结构体数组来组织主菜单和子菜单，每个结构体包含了菜单的名称、图标等信息。
-2. 利用图形库（u8g2）来绘制菜单和子菜单的界面，包括图标、文字等。
-3. 通过处理用户按键来切换主菜单、子菜单和执行相关操作。
-4. 实现了菜单到子菜单、子菜单到菜单的切换动画效果，提升用户体验。
-
-如何创建或修改一个菜单页面:
-1. 创建一个新的主菜单或子菜单需要定义一个对应的结构体数组，包括菜单项的名称、图标等信息。
-2. 在`UIConnect`函数中建立菜单之间的父子关系，将子菜单链接到对应的主菜单项上。
-3. 在`Show_Menu`函数中根据用户操作切换菜单，处理菜单的显示逻辑。
-4. 如果需要在菜单页面中执行特定操作，可以在合适的地方添加相关代码，例如在选中菜单项后执行特定功能。
-
-提示:
-- 要创建新的菜单项，请定义一个新的结构体，并将其添加到对应的菜单数组中。
-- 菜单的图标可以通过图形库来绘制，然后转换为XBM格式，并使用`u8g2_DrawXBM`来显示。
-- 可以根据需要修改菜单的外观和布局，包括文字位置、字体大小等。
-- 在处理用户按键时，注意检查按键状态并执行相应的操作，例如切换菜单、进入子菜单、执行功能等。
-
-*/
-
-/*************************************************
-				需要修改的地方begin
-*************************************************/
-
-/*定义主菜单*/
-MainMenu MainMenu_Config[4] = {
-	{game, "GAME", NULL},
-	{wechat, "MESSAGE", NULL},
-	{setting, "SETTING", NULL},
-	{game, "EXIT", NULL}};
-
-/*定义二级子菜单结构体*/
-ChildMenu GameMune[4] = {
-	{"game1:FlyBird", NULL, NULL, NULL, MAIN_TO_CHILD},
-	{"game2:Dinosaur Rex", NULL, NULL, NULL, MAIN_TO_CHILD},
-	{"game3:Stick Fight", NULL, NULL, NULL, MAIN_TO_CHILD},
-	{"game4:Tetris", NULL, NULL, NULL, MAIN_TO_CHILD}};
-
-ChildMenu SettingMune[4] = {
-	{"setting1:FlyBird", NULL, NULL, NULL, MAIN_TO_CHILD},
-	{"setting2:Dinosaur Rex", NULL, NULL, NULL, MAIN_TO_CHILD},
-	{"setting3:Stick Fight", NULL, NULL, NULL, MAIN_TO_CHILD},
-	{"setting4:Tetris", NULL, NULL, NULL, MAIN_TO_CHILD}};
-
-ChildMenu MessageMune[4] = {
-	{"Hello World", NULL, NULL, NULL, MAIN_TO_CHILD},
-	{"Hello Kettiy", NULL, NULL, NULL, MAIN_TO_CHILD},
-	{"I'm Li Hua", NULL, NULL, NULL, MAIN_TO_CHILD},
-	{"This is a message", NULL, NULL, NULL, MAIN_TO_CHILD}};
-
-ChildMenu GameChild4[4] = {
-	{"this is set1", NULL, NULL, NULL, CHILD_TO_CHILD},
-	{"this is set2", NULL, NULL, NULL, CHILD_TO_CHILD},
-	{"this is set3", NULL, NULL, NULL, CHILD_TO_CHILD},
-	{"this is set4", NULL, NULL, NULL, CHILD_TO_CHILD}};
-
-ChildMenu MessageChild2[4] = {
-	{"this is message1", NULL, NULL, NULL, CHILD_TO_CHILD},
-	{"this is message2", NULL, NULL, NULL, CHILD_TO_CHILD},
-	{"this is message3", NULL, NULL, NULL, CHILD_TO_CHILD},
-	{"this is message4", NULL, NULL, NULL, CHILD_TO_CHILD}};
-
-/**
- * 连接主菜单和子菜单，建立父子关系。
- */
-void UIConnect(void)
-{
-	/*子级关系*/
-	MainMenu_Config[0].ChildMenu = GameMune;
-	MainMenu_Config[1].ChildMenu = MessageMune;
-	MainMenu_Config[2].ChildMenu = SettingMune;
-	MainMenu_Config[3].ChildMenu = GameMune;
-
-	GameMune[3].child = GameChild4;
-	MessageMune[1].child = MessageChild2;
-
-	/*父级关系*/
-	GameChild4->father = GameMune;
-	MessageChild2->father = MessageMune;
-}
-
-/*************************************************
-				需要修改的地方end
-*************************************************/
-
 Speed_ENUM Speed_choose;
 
 extern u8g2_t u8g2;
@@ -209,6 +113,48 @@ void ui_left_one_Picture(int16_t *a, int b)
 	}
 }
 
+/*定义主菜单*/
+MainMenu MainMenu_Config[4] = {
+	{game, "GAME", NULL},
+	{wechat, "MESSAGE", NULL},
+	{setting, "SETTING", NULL},
+	{game, "EXIT", NULL}};
+
+/*定义二级子菜单结构体*/
+ChildMenu GameMune[4] = {
+	{"game1:FlyBird", NULL, NULL, NULL, MAIN_TO_CHILD},
+	{"game2:Dinosaur Rex", NULL, NULL, NULL, MAIN_TO_CHILD},
+	{"game3:Stick Fight", NULL, NULL, NULL, MAIN_TO_CHILD},
+	{"game4:Tetris", NULL, NULL, NULL, MAIN_TO_CHILD}};
+
+ChildMenu SettingMune[4] = {
+	{"setting1:FlyBird", NULL, NULL, NULL, MAIN_TO_CHILD},
+	{"setting2:Dinosaur Rex", NULL, NULL, NULL, MAIN_TO_CHILD},
+	{"setting3:Stick Fight", NULL, NULL, NULL, MAIN_TO_CHILD},
+	{"setting4:Tetris", NULL, NULL, NULL, MAIN_TO_CHILD}};
+
+ChildMenu GameChild4[4] = {
+	{"this is set1", NULL, NULL, NULL, CHILD_TO_CHILD},
+	{"this is set2", NULL, NULL, NULL, CHILD_TO_CHILD},
+	{"this is set3", NULL, NULL, NULL, CHILD_TO_CHILD},
+	{"this is set4", NULL, NULL, NULL, CHILD_TO_CHILD}};
+
+/**
+ * 连接主菜单和子菜单，建立父子关系。
+ */
+void UIConnect(void)
+{
+	/*子级关系*/
+	MainMenu_Config[0].ChildMenu = GameMune;
+	MainMenu_Config[2].ChildMenu = SettingMune;
+	MainMenu_Config[3].ChildMenu = GameMune;
+
+	GameMune[3].child = GameChild4;
+
+	/*父级关系*/
+	GameChild4->father = GameMune;
+}
+
 /**
  * 显示菜单配置，包括主菜单和子菜单。
  */
@@ -312,8 +258,6 @@ void Show_Menu(Speed_ENUM Speed_choose) // 显示菜单
 	if (MainMenu_Config[Picture_Flag].ChildMenu != NULL)
 		Creat_Childv2_Menu(MainMenu_Config[Picture_Flag].ChildMenu, MainMenu_Config[Picture_Flag].MenuName, 0);
 }
-
-// TODO:创建一个页面
 
 /**
  * 创建子菜单并处理用户输入。
