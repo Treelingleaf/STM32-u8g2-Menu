@@ -595,3 +595,22 @@ void Show_MainPage(void)
 		u8g2_SendBuffer(&u8g2);
 	}
 }
+
+void Menu_Start(void)
+{
+	MyTimeSecondRun();
+	uint8_t KeyNum;
+	KeyNum = Key_GetNum();
+	if (KeyNum == 3)
+	{
+		u8g2_ClearBuffer(&u8g2);
+		Show_Menu_Config();
+		MenuStatus = MENU_SHOW;
+	}
+
+	//		if(KeyNum == 5) {
+	//			MenuStatus = MENU_MAIN;
+	//		}
+	Show_MainPage();
+	Show_MenuRE(fast_max); // 菜单混动函数，修改"fast_speed"可以更改移滚动速度
+}

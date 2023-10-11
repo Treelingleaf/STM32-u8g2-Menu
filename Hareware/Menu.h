@@ -71,8 +71,8 @@ void Show_Menu(Speed_ENUM Speed_choose);      /*显示菜单*/
 void Show_Menu_Config(void);                  /*主菜单初始化/刷新*/
 
 void Show_MainPage(void);                  /*显示主页*/
-void Show_MenuRE(Speed_ENUM Speed_choose); /*主页切换菜单（主函数调用此函数即可）*/
-
+void Show_MenuRE(Speed_ENUM Speed_choose); /*主页切换菜单*/
+void Menu_Start(void);                     /*（主函数调用此函数即可）*/
 /*重写函数*/
 void Menu_To_X_Display(ChildMenu *menuitem, uint8_t child_Flag);               /*进入子菜单动画*/
 void X_To_Menu_Display(ChildMenu *menuitem, uint8_t child_Flag);               /*返回上一级菜单动画*/
